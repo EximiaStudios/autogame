@@ -1,4 +1,24 @@
-﻿#IfWinActive ahk_exe scarface.exe
+; Author: Memoritsu
+; File: ScarfaceCheat.ahk
+; Description:
+;   Enter cheat codes automatically
+;   Cheat codes entered:
+;	BLACK
+;	DONUT
+;	NOBALLS
+;	FLYSTRT
+;	GOBALLS
+;	FPATCH
+;	AMMO
+;	MEDIK
+;	BLUESH
+;	WHITE
+;
+;
+; Keybind: "CTRL + J"
+
+
+#IfWinActive ahk_exe scarface.exe
 SetKeyDelay, 45
 
 A := 1 
@@ -39,15 +59,6 @@ Z := 26
 9 := 36
  
  
-;DONUT
-;NOBALLS
-;GOBALLS
-;FPATCH
-;AMMO
-;MEDIK
-;BLUESH
-;WHITE
-
 
 Cheat(amount)
 {
@@ -76,7 +87,7 @@ $^j::
 	{
 		return
 	}
-/*	
+	
 	Send, {r up}{r down}
 	Cheat(D) Cheat(O) Cheat(N) Cheat(U) Cheat(T)
 	Send, {r up}{r down}
@@ -86,7 +97,7 @@ $^j::
 		return
 	}
 
-*/	
+	
 	Send, {r up}{r down}
 	Cheat(N) Cheat(O) Cheat(B) Cheat(A) Cheat(L) Cheat(L) Cheat(S)
 	Send, {r up}{r down}
@@ -95,7 +106,7 @@ $^j::
 	{
 		return
 	}
-/*
+
 	Send, {r up}{r down}
 	Cheat(G) Cheat(O) Cheat(B) Cheat(A) Cheat(L) Cheat(L) Cheat(S)
 	Send, {r up}{r down}
@@ -104,7 +115,7 @@ $^j::
 	{
 		return
 	}
-*/	
+	
 	Send, {r up}{r down}
 	Cheat(F) Cheat(P) Cheat(A) Cheat(T) Cheat(C) Cheat(H)
 	Send, {r up}{r down}
@@ -131,7 +142,7 @@ $^j::
 	{
 		return
 	}
-/*	
+	
 	Send, {r up}{r down}
 	Cheat(B) Cheat(L) Cheat(U) Cheat(E) Cheat(S) Cheat(H)
 	Send, {r up}{r down}
@@ -144,4 +155,3 @@ $^j::
 	Send, {r up}{r down}
 	Cheat(W) Cheat(H) Cheat(I) Cheat(T) Cheat(E)
 	Send, {r up}{r down}
-*/
