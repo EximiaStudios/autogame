@@ -1,5 +1,5 @@
-; DISCLAIMER, THIS SCRIPT IS NOT CONSISTANT.
-; REFRAIN FROM USING.
+; DISCLAIMER, THIS SCRIPT MIGHT NOT BE CONSISTANT ON LOWER FPS.
+; BEWARE.
 ;
 ; Author: Muazam Kamal
 ; File: automod.ahk
@@ -16,7 +16,40 @@
     Reload
     return
 
-autoMod()
+SendWithDelay(input, delay, repeatCount) {
+    Loop, %repeatCount%
+    {
+        ; Send key down
+        Send, % "{" . input . " down}"
+        Sleep, delay
+        ; Send key up
+        Send, % "{" . input . " up}"
+        Sleep, delay
+    }
+}
+
+MouseLeftClickWithDelay(delay, repeatCount) {
+    Loop, %repeatCount%
+    {
+        MouseClick, L
+        Sleep, delay
+    }
+}
+
+; Initial setup, ensure cursor is at the first mod regardless where it started at
+setup()
+{
+    ; Start at profile icon
+    SendWithDelay("Left", 50, 10)
+    SendWithDelay("Up", 50, 5)
+    SendWithDelay("Left", 50, 5)
+
+    ; Get to first mod
+    SendWithDelay("Down", 50, 4)
+}
+
+; Start main logic to select a mod, max, then decrease by count (default 5)
+autoMod(decreaseCount = 5)
 {
     Sleep, 100
 
@@ -30,17 +63,10 @@ autoMod()
     MouseClick, L
     Sleep, 100
 
-    ; Drop amount by 4
+    ; Drop amount by 'decreaseCount', default to 5
     MouseMove, -340, 0, 5, R
     Sleep, 200
-    MouseClick, L
-    Sleep, 200
-    MouseClick, L
-    Sleep, 200
-    MouseClick, L
-    Sleep, 200
-    MouseClick, L
-    Sleep, 200
+    MouseLeftClickWithDelay(100, decreaseCount)
 
     ; Select Confirm
     MouseMove, 0, 50, 5, R
@@ -49,24 +75,31 @@ autoMod()
     Sleep, 300
 }
 
+; Select all three rows in a column
+selectColumn()
+{
+    ; Select top row mod
+    autoMod()
+
+    ; Select middle row mod
+    SendWithDelay("Left", 50, 2)
+    SendWithDelay("Up", 50, 1)
+    autoMod()
+
+    ; Select bottom row mod
+    SendWithDelay("Left", 50, 2)
+    autoMod()
+
+    ; Go back to top row, and scroll to next column
+    SendWithDelay("Left", 50, 2)
+    SendWithDelay("Up", 50, 2)
+    Send, {WheelDown}
+}
+
 #IfWinActive ahk_exe Warframe.x64.exe
     ; On Alt + /
     !/::
 
-    autoMod()
+    setup()
 
-    Send, {Up}
-    Sleep, 100
-    Send, {Up}
-
-    autoMod()
-
-    Send, {Up}
-    Sleep, 100
-    Send, {Down}
-
-    autoMod()
-
-    Send, {WheelDown}
-
-    Send, {Up}
+    selectColumn()
